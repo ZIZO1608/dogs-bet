@@ -1,0 +1,28 @@
+services:
+  bot:
+    build: .
+    restart: unless-stopped
+    environment:
+      BOT_TOKEN: ${BOT_TOKEN}
+      ADMIN_IDS: ${ADMIN_IDS}
+      STORE_NAME: ${STORE_NAME:-Dogs Bet}
+      SUPPORT_USERNAME: ${SUPPORT_USERNAME:-}
+      REQUIRED_CHANNELS: ${REQUIRED_CHANNELS:-}
+      PLATFORM_WEBSITE: ${PLATFORM_WEBSITE:-}
+      DEFAULT_SYP_RATE: ${DEFAULT_SYP_RATE:-13000}
+      SYP_RATE_API_URL: ${SYP_RATE_API_URL:-}
+      SYP_RATE_JSON_KEY: ${SYP_RATE_JSON_KEY:-rate}
+      AGENT_API_BASE_URL: ${AGENT_API_BASE_URL:-}
+      AGENT_USERNAME: ${AGENT_USERNAME:-}
+      AGENT_PASSWORD: ${AGENT_PASSWORD:-}
+      DATABASE_URL: sqlite+aiosqlite:///./data/dogs_bet.db
+    volumes:
+      - bot_data:/bot/data
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  bot_data:
